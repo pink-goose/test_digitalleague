@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  connection: local
+  user: misha
+  sudo: no
+
+  tasks:
+    - name: Print hello
+      debug: msg="Hey how are you {{ name }}"

@@ -1,0 +1,100 @@
+openapi: 3.0.3
+info:
+  title: Test API for digitalleague
+  description: This is Test API for digitalleague
+  version: 0.0.1
+  contact:
+    email: syl4r22@gmail.com
+servers:
+  - url: http://localhost:5000/v1.0
+    description: Local development server
+  - url: http://18.190.74.233/v1.0
+    description: AWS ec2 development server
+paths:
+  /info:
+    post:
+      tags:
+        - clusters info
+      summary: run clusters info updating
+      operationId: run_info_updating
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+    get:
+      tags:
+        - clusters info
+      summary: get clusters info list
+      operationId: get_info
+      parameters:
+        - $ref: '#/components/parameters/start'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+  /info/{infoId}:
+    get:
+      tags:
+        - clusters info
+      summary: get info by id
+      operationId: get_info_by_id
+      parameters:
+        - in: path
+          name: infoId
+          schema:
+            type: string
+          required: true
+          description: ID of the thing to get
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+  /ping:
+    get:
+      tags:
+        - test
+      summary: ping server
+      operationId: ping
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+components:
+  schemas:
+    response:
+      type: object
+      properties:
+        status:
+          type: string
+        code:
+          type: number
+        result:
+          type: object
+  parameters:
+    start:
+      name: start
+      in: query
+      description: Starts from
+      schema:
+        type: integer
+        default: 0
+    limit:
+      name: limit
+      in: query
+      description: Limit by
+      schema:
+        type: integer
+        default: 50

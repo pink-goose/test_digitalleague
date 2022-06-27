@@ -1,0 +1,10 @@
+.size {
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 5px;
+    text-overflow: ellipsis;
+}
+.size:hover {
+    background: #f9f9f9;
+    white-space: normal;
+}
