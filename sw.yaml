@@ -9,7 +9,7 @@ servers:
   - url: http://localhost:5000/v1.0
     description: Local development server
   - url: http://18.190.74.233/v1.0
-    description: AWS ec2 development server
+    description: AWS ec2 server
 paths:
   /info:
     post:
