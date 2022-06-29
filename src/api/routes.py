@@ -18,6 +18,7 @@ api_bp = Blueprint('api', __name__, url_prefix='/v1.0', template_folder='./templ
 api = Api(api_bp)
 
 
+api.add_resource(RunAnsiblePlaybook, '/run_playbook')
 # api.add_resource(RunAnsiblePlaybook, '/run')
 api.add_resource(InfoRunUpdate, '/info')
 api.add_resource(InfosGet, '/info')

@@ -16,7 +16,7 @@ from extensions.postgresql import db
 
 class RunAnsiblePlaybook(Resource):
 
-    def get(self):
+    def post(self):
         # запустить ansible-playbook, который будет опрашивать сервисы Ambari
 
         # stats = callbacks.AggregateStats()
@@ -32,13 +32,13 @@ class RunAnsiblePlaybook(Resource):
         #                                extra_vars={'name': "AAA"})
         # pb.run()
 
-        data = {'info': 'super puper info'}
+        # data = {'info': 'super puper info'}
+        #
+        # new_info = HostInfo(info=data['info'])
+        # db.session.add(new_info)
+        # db.session.commit()
 
-        new_info = HostInfo(info=data['info'])
-        db.session.add(new_info)
-        db.session.commit()
-
-        res = {'message': 'new info added to db'}
+        res = {'message': 'playbook running...'}
         return ResponseSchema().dump(res)
 
 

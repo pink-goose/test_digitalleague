@@ -11,11 +11,24 @@ servers:
   - url: http://18.190.74.233/v1.0
     description: AWS ec2 server
 paths:
+  /run_playbook:
+    post:
+      tags:
+        - ansible
+      summary: run ansible playbook for clusters info updating
+      operationId: run_playbook
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
   /info:
     post:
       tags:
         - clusters info
-      summary: run clusters info updating
+      summary: run clusters info updating witn Ambari API
       operationId: run_info_updating
       responses:
         '200':
@@ -30,6 +43,22 @@ paths:
       summary: get clusters info list
       operationId: get_info
       parameters:
+        # - in: query
+        #   description: "['c1', 'c2']"
+        #   name: clusters
+        #   schema:
+        #     type: array
+        #     default: null
+        #     items:
+        #       type: string
+        # - in: query
+        #   description: "['h1', 'h2']"
+        #   name: hosts
+        #   schema:
+        #     type: array
+        #     default: null
+        #     items:
+        #       type: string
         - $ref: '#/components/parameters/start'
         - $ref: '#/components/parameters/limit'
       responses:

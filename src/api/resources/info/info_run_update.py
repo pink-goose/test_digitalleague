@@ -36,23 +36,22 @@ class InfoRunUpdate(Resource):
 
         for cluster, hosts in hosts.items():
             for host in hosts:
-                r = requests.get(f'http://127.0.0.1:5222/api/v1/clusters/{cluster}/hosts/{host}')
+                try:
+                    r = requests.get(f'http://127.0.0.1:5222/api/v1/clusters/{cluster}/hosts/{host}')
+                except Exception as e:
+                    print(e)
+                    return ResponseSchema().dump({'message': 'Error raised While trying to connect Ambari'})
 
-                data = {'info': json.dumps(r.json())}
+                if r.status_code == 200:
 
-                new_info = HostInfo(cluster=cluster, host=host, info=data['info'])
+                    data = {'info': json.dumps(r.json())}
 
-                db.session.add(new_info)
-                db.session.commit()
+                    new_info = HostInfo(cluster=cluster, host=host, info=data['info'])
 
-        # r = requests.get('http://127.0.0.1:5222/api/v1/clusters/c1/hosts/host1')
-        #
-        # data = {'info': json.dumps(r.json())}
-        #
-        # new_info = HostInfo(info=data['info'])
-        #
-        # db.session.add(new_info)
-        # db.session.commit()
+                    db.session.add(new_info)
+                    db.session.commit()
+                else:
+                    return ResponseSchema().dump({'message': 'Status code from Ambari is not ok'})
 
         res = {'message': 'new info added to db'}
         return ResponseSchema().dump(res)

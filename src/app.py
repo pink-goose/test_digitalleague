@@ -1,5 +1,6 @@
 from flask import Flask
 from extensions import (
+    init_cors,
     init_postgresql,
 )
 
@@ -15,6 +16,7 @@ def create_app():
 
 
 def init_extensions(app):
+    init_cors(app)
     init_postgresql(app)
 
 
